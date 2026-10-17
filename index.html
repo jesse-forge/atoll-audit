@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atoll Audit · Free security check for apps built with Lovable, Bolt &amp; Cursor</title>
+<meta name="description" content="Free leaked-key checker and free read-only security scan for apps built with AI coding tools on Supabase or Firebase. Plain-English fixes you can paste into your AI tool.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="site.css">
+<script src="config.js"></script>
+<script src="analytics.js"></script>
+</head>
+<body>
+<nav><a class="brand" href="index.html">🏝️ Atoll Audit</a><span class="links"><a href="checker/index.html">Key checker</a><a href="#request">Full scan</a><a href="#faq">FAQ</a></span></nav>
+<main>
+<section class="hero">
+  <span class="badge">Free during launch</span>
+  <h1>Is your AI-built app leaking keys or data?</h1>
+  <p>Built with Lovable, Bolt, Cursor, v0 or Replit on Supabase or Firebase? Check for leaked secret keys in seconds, right in your browser. Then request a free full scan and get a plain-English report with fix prompts you can paste into your AI tool.</p>
+  <a class="btn" href="checker/index.html">Check my code for leaked keys (free)</a>
+  <a class="btn ghost" href="#request">Get your checkup (free full scan)</a>
+</section>
+
+<section>
+  <h2>Two free tools</h2>
+  <div class="grid">
+    <div class="card"><h3>🔑 Leaked-key checker</h3><p>Paste your app's JavaScript and instantly see whether it contains keys that should never be public: Supabase service_role, Stripe, OpenAI, Anthropic, Resend and more. <b>Runs entirely in your browser; nothing is uploaded.</b></p><a href="checker/index.html">Open the checker →</a></div>
+    <div class="card"><h3>🛡️ Full launch check</h3><p>We scan your live app, <b>read-only</b>, the way an attacker would look at it: open database tables, public storage, weak login settings, exposed admin and debug pages, vulnerable libraries, leaked environment variables and missing security headers. You get a graded report with a fix prompt for every issue.</p><a href="#request">Request a free scan →</a></div>
+  </div>
+</section>
+
+<section>
+  <h2>What the full check looks at</h2>
+  <div class="grid">
+    <div class="card"><h3>Your data</h3><p class="muted">Supabase tables readable without login (Row Level Security off), public storage buckets and files, open Firebase Realtime Database / Firestore.</p></div>
+    <div class="card"><h3>Your keys</h3><p class="muted">Secret keys and secret-looking <code>VITE_</code> / <code>NEXT_PUBLIC_</code> / <code>REACT_APP_</code> variables in your bundles, <code>window.__ENV__</code> dumps, exposed <code>.env</code> and <code>.git</code>.</p></div>
+    <div class="card"><h3>Your login</h3><p class="muted">Open sign-ups, email confirmation turned off, anonymous sign-ins, admin pages listed in your app, missing rate-limit signals on login endpoints.</p></div>
+    <div class="card"><h3>Leftovers</h3><p class="muted">Debug endpoints, GraphQL introspection, Swagger docs, server-status pages, stack traces, source maps, and library versions with known vulnerabilities.</p></div>
+  </div>
+  <p class="muted"><b>Triple-checked:</b> every finding must show up in two independent scans, and every report passes an automatic safety audit (no full keys, no data from your database, only read-only requests) before a person reviews it and sends it to you.</p>
+</section>
+
+<section>
+  <h2>How it works</h2>
+  <ol>
+    <li><b>Request</b>: give us your app's URL and confirm you own it.</li>
+    <li><b>Scan</b>: our scanner makes a limited number of read-only requests (it never writes, deletes or signs up, and never reads more than one row per table; row contents are thrown away).</li>
+    <li><b>Report</b>: you get a graded HTML report with what each issue means, why it matters, and a copy-paste fix prompt for Lovable, Bolt or Cursor.</li>
+  </ol>
+</section>
+
+<section id="request">
+  <h2>Request a free full scan</h2>
+  <form id="scan-form" novalidate>
+    <label for="app_url">Your app's URL</label>
+    <input id="app_url" name="app_url" type="url" placeholder="https://my-app.lovable.app" required>
+    <label for="platform">Built with</label>
+    <select id="platform" name="platform">
+      <option value="unknown">Not sure</option><option value="lovable">Lovable</option><option value="bolt">Bolt</option><option value="cursor">Cursor</option>
+      <option value="replit">Replit</option><option value="v0">v0</option><option value="other">Other</option>
+    </select>
+    <label for="email">Email for your report <span class="muted">(optional)</span></label>
+    <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+    <p class="muted" style="margin:.3rem 0 0">Used only to send your report and to verify ownership if needed. Never sold, never added to a mailing list without asking. Ask us any time to delete it.</p>
+    <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="check"><input type="checkbox" id="owns_app" name="owns_app" value="yes" required>
+      <span>I own this app or have written permission from its owner to test it, and I authorize Atoll Audit to run a read-only, non-destructive security scan of it. I have read the <a href="terms.html">terms</a> and <a href="privacy.html">privacy notice</a>.</span></label>
+    <button class="btn" type="submit">Request my free scan</button>
+    <div id="form-msg" aria-live="polite" style="margin-top:1rem"></div>
+  </form>
+  <p class="muted">We may ask you to prove ownership before sending results (for example by adding a small text file to your site). We do not scan apps whose ownership we can't reasonably confirm.</p>
+</section>
+
+<section id="faq">
+  <h2>FAQ</h2>
+  <details><summary>Is it really free?</summary><p>Yes. During launch both the key checker and the full scan are free. If we ever add paid options, anything you already received stays free.</p></details>
+  <details><summary>Does the key checker upload my code?</summary><p>No. The detection runs in JavaScript on your device, and the page's security policy blocks it from sending your text anywhere. Only anonymous counts (for example "a check was run") are recorded, and not even those if your browser sends Do Not Track or Global Privacy Control.</p></details>
+  <details><summary>Will the full scan break or change my app?</summary><p>No. It only uses read requests (GET/HEAD/OPTIONS), waits between requests, reads at most one row per table and immediately discards the contents, and never calls your server functions, signs up, or logs in.</p></details>
+  <details><summary>Why do you need me to confirm I own the app?</summary><p>Scanning someone else's app without permission can be illegal. We only scan apps whose owner asked us to.</p></details>
+  <details><summary>My Supabase anon key showed up. Is that bad?</summary><p>No. The anon/publishable key is meant to be public. It's only dangerous if Row Level Security is off on a table, which is what the full scan checks.</p></details>
+  <details><summary>Is this a penetration test or a guarantee?</summary><p>No. It's an automated check for the most common mistakes in AI-built apps. A clean report does not guarantee your app is secure.</p></details>
+  <details><summary>Can I use it from Cursor or Claude Code?</summary><p>A local MCP server is in development, so your AI coding assistant can run the same checks. Ask us if you'd like early access.</p></details>
+</section>
+
+<section id="privacy-notice">
+  <h2>Privacy in one paragraph</h2>
+  <p class="muted">This site uses <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a>, a cookieless analytics service, to count page views, referring sites and a few anonymous events: <code>check_run</code> (a key check was run), <code>finding_…</code> (which <i>type</i> of issue was found), <code>platform_…</code> (which builder was selected or detected) and <code>scan_request</code> (a scan was requested). We never send pasted code, keys, app URLs or email addresses to analytics. If your browser sends Do Not Track or Global Privacy Control, nothing is counted. Scan requests go to us only so we can run your scan. Details: <a href="privacy.html">privacy notice</a>.</p>
+</section>
+
+<section>
+  <p class="muted"><b>Disclaimer:</b> Atoll Audit is an automated, read-only, owner-authorized security check. It is not a penetration test, does not guarantee your app is secure, and only tests what is reachable from your public website. Atoll Audit is not affiliated with Lovable, Bolt, Cursor, Supabase, Firebase, Replit or Vercel.</p>
+</section>
+</main>
+<footer>© 2026 Atoll Audit · <a href="checker/index.html">Key checker</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></footer>
+<script>
+(function () {
+  var C = window.ATOLL_CONFIG || {};
+  var form = document.getElementById("scan-form"), msg = document.getElementById("form-msg");
+  function isSet(v, ph) { return v && v !== ph; }
+  function show(cls, text) { msg.className = cls; msg.textContent = text; }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var url = form.app_url.value.trim(), email = form.email.value.trim();
+    if (form.company_website.value) return show("okmsg", "Thanks!"); // honeypot: silently drop bots
+    if (!/^https?:\/\/[^\s/$.?#][^\s]*$/i.test(url)) return show("notice", "Please enter your app's full URL, starting with https://");
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("notice", "That email address doesn't look right (or leave it empty).");
+    if (!form.owns_app.checked) return show("notice", "Please confirm you own this app (or have permission to test it).");
+    var fields = { app_url: url, email: email, platform: form.platform.value, owns_app: "yes",
+                   consent_text_version: "2026-10-17-draft", consent_at: new Date().toISOString() };
+    var endpoint = isSet(C.SCAN_REQUEST_URL, "SCAN_REQUEST_URL") ? C.SCAN_REQUEST_URL :
+                   isSet(C.CONTACT_EMAIL, "CONTACT_EMAIL") ? "mailto:" + C.CONTACT_EMAIL : "";
+    function counted() { if (window.atollAnalytics) { window.atollAnalytics.track("scan_request"); window.atollAnalytics.track("platform_" + fields.platform); } }
+    if (/^https:\/\//i.test(endpoint)) {
+      var fd = new FormData(); Object.keys(fields).forEach(function (k) { fd.append(k, fields[k]); });
+      show("muted", "Sending…");
+      fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        counted(); form.reset(); show("okmsg", "Got it! We'll run your read-only scan and send the report" + (email ? " to " + email : "") + ", usually within 2 business days.");
+      }).catch(function () { show("notice", "Sorry, that didn't go through. Please try again in a minute."); });
+    } else if (/^mailto:/i.test(endpoint)) {
+      var body = "Please run a free Atoll Audit scan.\n\nApp URL: " + url + "\nEmail: " + (email || "(reply to this email)") + "\nBuilt with: " + fields.platform +
+                 "\nOwnership confirmed: yes (I own this app or have the owner's written permission and authorize a read-only scan)\nConsent time: " + fields.consent_at + "\n";
+      counted();
+      location.href = endpoint + "?subject=" + encodeURIComponent("Atoll Audit scan request") + "&body=" + encodeURIComponent(body);
+      show("okmsg", "Your email app should open with the request filled in. Just press Send.");
+    } else {
+      show("notice", "Scan requests open very soon. Please check back shortly, or use the free key checker now.");
+    }
+  });
+})();
+</script>
+</body>
+</html>
